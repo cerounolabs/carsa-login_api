@@ -9,10 +9,11 @@
         $val05      = $request->getParsedBody()['login_parm05'];
         $val06      = $request->getParsedBody()['login_parm06'];
         $val07      = $request->getParsedBody()['login_parm07'];
+        $val08      = $request->getParsedBody()['login_parm08'];
 
         $pass       = getContrasenha($val01, $val02);
 
-        if (isset($val01) && isset($val02) && isset($val03)) {
+        if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
             $sql00  = "SELECT
             a.ClUsu                 AS      login_usuario,
             a.ClCon                 AS      login_contrasenha,
@@ -39,7 +40,7 @@
             
             ORDER BY a.FuCod";
 
-            $sql01  = "INSERT INTO FUNLOG (FUNLOGEST, FUNLOGUSU, FUNLOGPAS, FUNLOGDIR, FUNLOGHOS, FUNLOGAGE, FUNLOGREF, FUNLOGAFH) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql01  = "INSERT INTO FUNLOG (FUNLOGEST, FUNLOGUSU, FUNLOGPAS, FUNLOGSIS, FUNLOGDIR, FUNLOGHOS, FUNLOGAGE, FUNLOGREF, FUNLOGAFH) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             try {
                 $connMSSQL  = getConnectionMSSQL();
@@ -123,7 +124,7 @@
                     }
                 }
 
-                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07]); 
+                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07, $val08]); 
                 
                 $stmtMSSQL->closeCursor();
                 $stmtMYSQL->closeCursor();
