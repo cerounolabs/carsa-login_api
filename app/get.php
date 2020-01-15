@@ -28,13 +28,12 @@
         a.ANTIGUEDAD                    AS          funcionario_antiguedad
 
         FROM COLABORADOR_BASICOS a
-        WHERE a.COD_FUNC = ?
         ORDER BY a.COD_FUNC";
 
         try {
             $connMSSQL  = getConnectionMSSQL();
             $stmtMSSQL  = $connMSSQL->prepare($sql00);
-            $stmtMSSQL->execute([$val01]);
+            $stmtMSSQL->execute([]);
 
             while ($rowMSSQL = $stmtMSSQL->fetch()) {
                 if (isset($rowMSSQL['funcionario_foto'])) {
