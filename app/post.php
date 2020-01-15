@@ -76,7 +76,7 @@
                     $json       = json_encode(array('code' => 201, 'status' => 'Error', 'message' => 'Error LOGIN: Usuario No Existe', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
                     
                 } else {
-                    if($row_mssql['login_contrasenha'] == $val02){
+                    if($row_mssql['login_contrasenha'] == $pass){
                         $val00      = 'O';
                         $detalle    = array(
                             'login_usuario'             => $row_mssql['login_usuario'],
