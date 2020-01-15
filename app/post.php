@@ -2,13 +2,13 @@
     $app->post('/v1/login', function($request) {
         require __DIR__.'/../src/connect.php';
 
-        $val01      = $request->getParsedBody()['usuario_var01'];
-        $val02      = $request->getParsedBody()['usuario_var02'];
-        $val03      = $request->getParsedBody()['usuario_var03'];
-        $val04      = $request->getParsedBody()['usuario_var04'];
-        $val05      = $request->getParsedBody()['usuario_var05'];
-        $val06      = $request->getParsedBody()['usuario_var06'];
-        $val07      = $request->getParsedBody()['usuario_var07'];
+        $val01      = $request->getParsedBody()['login_parm01'];
+        $val02      = $request->getParsedBody()['login_parm02'];
+        $val03      = $request->getParsedBody()['login_parm03'];
+        $val04      = $request->getParsedBody()['login_parm04'];
+        $val05      = $request->getParsedBody()['login_parm05'];
+        $val06      = $request->getParsedBody()['login_parm06'];
+        $val07      = $request->getParsedBody()['login_parm07'];
 
         $pass       = getContrasenha($val01, $val02);
 
