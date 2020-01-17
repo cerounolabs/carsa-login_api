@@ -15,23 +15,25 @@
 
         if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
             $sql00  = "SELECT
-            a.ClUsu                 AS      login_usuario,
-            a.ClCon                 AS      login_contrasenha,
-            a.FuCod                 AS      login_funcionario_codigo,
-            a.ClNom                 AS      login_funcionario_nombre,
+            a.ClUsu                     AS      login_usuario,
+            a.ClCon                     AS      login_contrasenha,
+            a.FuCod                     AS      login_funcionario_codigo,
+            a.ClNom                     AS      login_funcionario_nombre,
 
-            b.COD_CARGO             AS      login_cargo_codigo,
-            b.CARGO                 AS      login_cargo_nombre,
-            b.COD_GERENCIA          AS      login_gerencia_codigo,
-            b.GERENCIA              AS      login_gerencia_nombre,
-            b.COD_DEPARTAMENTO_AREA AS      login_departamento_codigo,
-            b.DEPARTAMENTO          AS      login_departamento_nombre,
-            b.COD_UNIDAD            AS      login_unidad_codigo,
-            b.UNIDAD                AS      login_unidad_nombre,
-            b.COD_SUPERVISION       AS      login_supervision_codigo,
-            b.SUPERVISION           AS      login_supervision_nombre,
-            b.FOTO_TARGET           AS      login_foto,
-            b.CORREO_ELECTRONICO    AS      login_email
+            b.COD_CARGO                 AS      login_cargo_codigo,
+            b.CARGO                     AS      login_cargo_nombre,
+            b.COD_GERENCIA              AS      login_gerencia_codigo,
+            b.GERENCIA                  AS      login_gerencia_nombre,
+            b.COD_DEPARTAMENTO_AREA     AS      login_departamento_codigo,
+            b.DEPARTAMENTO              AS      login_departamento_nombre,
+            b.COD_UNIDAD                AS      login_unidad_codigo,
+            b.UNIDAD                    AS      login_unidad_nombre,
+            b.COD_SUPERVISION           AS      login_supervision_codigo,
+            b.SUPERVISION               AS      login_supervision_nombre,
+            b.COD_SUPERIOR_INMEDIATO    AS      login_superior_codigo,
+            b.SUPERIOR_INMEDIATO        AS      login_superior_nombre,
+            b.FOTO_TARGET               AS      login_foto,
+            b.CORREO_ELECTRONICO        AS      login_email
 
             FROM FSD050 a
 			INNER JOIN COLABORADOR_BASICOS b ON a.FuCod = b.COD_FUNC
@@ -69,6 +71,8 @@
                         'login_unidad_nombre'       => '',
                         'login_supervision_codigo'  => '',
                         'login_supervision_nombre'  => '',
+                        'login_superior_codigo'     => '',
+                        'login_superior_nombre'     => '',
                         'login_foto'                => '',
                         'login_email'               => ''
                     );
@@ -93,6 +97,8 @@
                             'login_unidad_nombre'       => $row_mssql['login_unidad_nombre'],
                             'login_supervision_codigo'  => $row_mssql['login_supervision_codigo'],
                             'login_supervision_nombre'  => $row_mssql['login_supervision_nombre'],
+                            'login_superior_codigo'     => $row_mssql['login_superior_codigo'],
+                            'login_superior_nombre'     => $row_mssql['login_superior_nombre'],
                             'login_foto'                => $row_mssql['login_foto'],
                             'login_email'               => $row_mssql['login_email'],
                         );
@@ -115,6 +121,8 @@
                             'login_unidad_nombre'       => '',
                             'login_supervision_codigo'  => '',
                             'login_supervision_nombre'  => '',
+                            'login_superior_codigo'     => '',
+                            'login_superior_nombre'     => '',
                             'login_foto'                => '',
                             'login_email'               => ''
                         );
@@ -162,23 +170,25 @@
 
         if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
             $sql00  = "SELECT
-            a.ClUsu                 AS      login_usuario,
-            a.ClCon                 AS      login_contrasenha,
-            a.FuCod                 AS      login_funcionario_codigo,
-            a.ClNom                 AS      login_funcionario_nombre,
+            a.ClUsu                     AS      login_usuario,
+            a.ClCon                     AS      login_contrasenha,
+            a.FuCod                     AS      login_funcionario_codigo,
+            a.ClNom                     AS      login_funcionario_nombre,
 
-            b.COD_CARGO             AS      login_cargo_codigo,
-            b.CARGO                 AS      login_cargo_nombre,
-            b.COD_GERENCIA          AS      login_gerencia_codigo,
-            b.GERENCIA              AS      login_gerencia_nombre,
-            b.COD_DEPARTAMENTO_AREA AS      login_departamento_codigo,
-            b.DEPARTAMENTO          AS      login_departamento_nombre,
-            b.COD_UNIDAD            AS      login_unidad_codigo,
-            b.UNIDAD                AS      login_unidad_nombre,
-            b.COD_SUPERVISION       AS      login_supervision_codigo,
-            b.SUPERVISION           AS      login_supervision_nombre,
-            b.FOTO_TARGET           AS      login_foto,
-            b.CORREO_ELECTRONICO    AS      login_email
+            b.COD_CARGO                 AS      login_cargo_codigo,
+            b.CARGO                     AS      login_cargo_nombre,
+            b.COD_GERENCIA              AS      login_gerencia_codigo,
+            b.GERENCIA                  AS      login_gerencia_nombre,
+            b.COD_DEPARTAMENTO_AREA     AS      login_departamento_codigo,
+            b.DEPARTAMENTO              AS      login_departamento_nombre,
+            b.COD_UNIDAD                AS      login_unidad_codigo,
+            b.UNIDAD                    AS      login_unidad_nombre,
+            b.COD_SUPERVISION           AS      login_supervision_codigo,
+            b.SUPERVISION               AS      login_supervision_nombre,
+            b.COD_SUPERIOR_INMEDIATO    AS      login_superior_codigo,
+            b.SUPERIOR_INMEDIATO        AS      login_superior_nombre,
+            b.FOTO_TARGET               AS      login_foto,
+            b.CORREO_ELECTRONICO        AS      login_email
 
             FROM FSD050 a
 			INNER JOIN COLABORADOR_BASICOS b ON a.FuCod = b.COD_FUNC
@@ -216,6 +226,8 @@
                         'login_unidad_nombre'       => '',
                         'login_supervision_codigo'  => '',
                         'login_supervision_nombre'  => '',
+                        'login_superior_codigo'     => '',
+                        'login_superior_nombre'     => '',
                         'login_foto'                => '',
                         'login_email'               => ''
                     );
@@ -240,6 +252,8 @@
                             'login_unidad_nombre'       => $row_mssql['login_unidad_nombre'],
                             'login_supervision_codigo'  => $row_mssql['login_supervision_codigo'],
                             'login_supervision_nombre'  => $row_mssql['login_supervision_nombre'],
+                            'login_superior_codigo'     => $row_mssql['login_superior_codigo'],
+                            'login_superior_nombre'     => $row_mssql['login_superior_nombre'],
                             'login_foto'                => $row_mssql['login_foto'],
                             'login_email'               => $row_mssql['login_email'],
                         );
@@ -262,6 +276,8 @@
                             'login_unidad_nombre'       => '',
                             'login_supervision_codigo'  => '',
                             'login_supervision_nombre'  => '',
+                            'login_superior_codigo'     => '',
+                            'login_superior_nombre'     => '',
                             'login_foto'                => '',
                             'login_email'               => ''
                         );
