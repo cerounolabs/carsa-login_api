@@ -24,6 +24,8 @@
         a.UNIDAD                        AS          funcionario_unidad_nombre,
         a.COD_SUPERVISION               AS          funcionario_supervision_codigo,
         a.SUPERVISION                   AS          funcionario_supervision_nombre,
+        a.COD_SUPERIOR_INMEDIATO        AS          funcionario_superior_codigo,
+        a.SUPERIOR_INMEDIATO            AS          funcionario_superior_nombre,
         a.FOTO_TARGET                   AS          funcionario_foto,
         a.ANTIGUEDAD                    AS          funcionario_antiguedad
 
@@ -64,6 +66,8 @@
                     'funcionario_unidad_nombre'                                 => strtoupper($rowMSSQL['funcionario_unidad_nombre']),
                     'funcionario_supervision_codigo'                            => $rowMSSQL['funcionario_supervision_codigo'],
                     'funcionario_supervision_nombre'                            => strtoupper($rowMSSQL['funcionario_supervision_nombre']),
+                    'funcionario_superior_codigo'                               => $rowMSSQL['funcionario_superior_codigo'],
+                    'funcionario_superior_nombre'                               => strtoupper($rowMSSQL['funcionario_superior_nombre']),
                     'funcionario_foto'                                          => $funcionario_foto,
                     'funcionario_antiguedad'                                    => strtoupper($rowMSSQL['funcionario_antiguedad'])
                 );
@@ -97,6 +101,8 @@
                     'funcionario_unidad_nombre'                                 => '',
                     'funcionario_supervision_codigo'                            => '',
                     'funcionario_supervision_nombre'                            => '',
+                    'funcionario_superior_codigo'                               => '',
+                    'funcionario_superior_nombre'                               => '',
                     'funcionario_foto'                                          => '../assets/images/users/photo.png',
                     'funcionario_antiguedad'                                    => ''
                 );
@@ -145,6 +151,8 @@
             a.UNIDAD                        AS          funcionario_unidad_nombre,
             a.COD_SUPERVISION               AS          funcionario_supervision_codigo,
             a.SUPERVISION                   AS          funcionario_supervision_nombre,
+            a.COD_SUPERIOR_INMEDIATO        AS          funcionario_superior_codigo,
+            a.SUPERIOR_INMEDIATO            AS          funcionario_superior_nombre,
             a.FOTO_TARGET                   AS          funcionario_foto,
             a.ANTIGUEDAD                    AS          funcionario_antiguedad
 
@@ -186,6 +194,8 @@
                         'funcionario_unidad_nombre'                                 => strtoupper($rowMSSQL['funcionario_unidad_nombre']),
                         'funcionario_supervision_codigo'                            => $rowMSSQL['funcionario_supervision_codigo'],
                         'funcionario_supervision_nombre'                            => strtoupper($rowMSSQL['funcionario_supervision_nombre']),
+                        'funcionario_superior_codigo'                               => $rowMSSQL['funcionario_superior_codigo'],
+                        'funcionario_superior_nombre'                               => strtoupper($rowMSSQL['funcionario_superior_nombre']),
                         'funcionario_foto'                                          => $funcionario_foto,
                         'funcionario_antiguedad'                                    => strtoupper($rowMSSQL['funcionario_antiguedad'])
                     );
@@ -219,6 +229,8 @@
                         'funcionario_unidad_nombre'                                 => '',
                         'funcionario_supervision_codigo'                            => '',
                         'funcionario_supervision_nombre'                            => '',
+                        'funcionario_superior_codigo'                               => '',
+                        'funcionario_superior_nombre'                               => '',
                         'funcionario_foto'                                          => '../assets/images/users/photo.png',
                         'funcionario_antiguedad'                                    => ''
                     );
@@ -271,6 +283,8 @@
             a.UNIDAD                        AS          funcionario_unidad_nombre,
             a.COD_SUPERVISION               AS          funcionario_supervision_codigo,
             a.SUPERVISION                   AS          funcionario_supervision_nombre,
+            a.COD_SUPERIOR_INMEDIATO        AS          funcionario_superior_codigo,
+            a.SUPERIOR_INMEDIATO            AS          funcionario_superior_nombre,
             a.FOTO_TARGET                   AS          funcionario_foto,
             a.ANTIGUEDAD                    AS          funcionario_antiguedad
 
@@ -312,6 +326,8 @@
                         'funcionario_unidad_nombre'                                 => strtoupper($rowMSSQL['funcionario_unidad_nombre']),
                         'funcionario_supervision_codigo'                            => $rowMSSQL['funcionario_supervision_codigo'],
                         'funcionario_supervision_nombre'                            => strtoupper($rowMSSQL['funcionario_supervision_nombre']),
+                        'funcionario_superior_codigo'                               => $rowMSSQL['funcionario_superior_codigo'],
+                        'funcionario_superior_nombre'                               => strtoupper($rowMSSQL['funcionario_superior_nombre']),
                         'funcionario_foto'                                          => $funcionario_foto,
                         'funcionario_antiguedad'                                    => strtoupper($rowMSSQL['funcionario_antiguedad'])
                     );
@@ -346,6 +362,8 @@
                         'funcionario_supervision_codigo'                            => '',
                         'funcionario_supervision_nombre'                            => '',
                         'funcionario_foto'                                          => '../assets/images/users/photo.png',
+                        'funcionario_superior_codigo'                               => '',
+                        'funcionario_superior_nombre'                               => '',
                         'funcionario_antiguedad'                                    => ''
                     );
 
