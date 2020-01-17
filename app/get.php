@@ -33,7 +33,7 @@
         ORDER BY a.COD_FUNC";
 
         try {
-            $connMSSQL  = getConnectionMSSQL();
+            $connMSSQL  = getConnectionMSSQLv1();
             $stmtMSSQL  = $connMSSQL->prepare($sql00);
             $stmtMSSQL->execute([]);
 
@@ -161,7 +161,7 @@
             ORDER BY a.COD_FUNC";
 
             try {
-                $connMSSQL  = getConnectionMSSQL();
+                $connMSSQL  = getConnectionMSSQLv1();
                 $stmtMSSQL  = $connMSSQL->prepare($sql00);
                 $stmtMSSQL->execute([$val01]);
 
@@ -293,7 +293,7 @@
             ORDER BY a.COD_FUNC";
 
             try {
-                $connMSSQL  = getConnectionMSSQL();
+                $connMSSQL  = getConnectionMSSQLv1();
                 $stmtMSSQL  = $connMSSQL->prepare($sql00);
                 $stmtMSSQL->execute([$val01]);
 

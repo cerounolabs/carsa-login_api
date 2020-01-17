@@ -1,5 +1,28 @@
 <?php
-    function getConnectionMSSQL(){
+    function getConnectionMSSQLv1(){
+        $serverName = "SRVDESA01";
+        $serverPort = "1433";
+        $serverDb   = "DESTRASJUD";
+        $serverUser = "czelaya";
+        $serverPass = "carsa_2019";
+        
+        try {
+            $conn = new PDO("sqlsrv:Server=$serverName,$serverPort;Database=$serverDb;ConnectionPooling=0", $serverUser, $serverPass,
+                array(
+                    PDO::ATTR_PERSISTENT => false,
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                )
+            );
+        } catch (PDOException $e) {
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error Connecting to MSSQL: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            die();
+        }
+
+        return $conn;
+    }
+
+    function getConnectionMSSQLv2(){
         $serverName = "SRVDESA01";
         $serverPort = "1433";
         $serverDb   = "DESTRASJUD";
