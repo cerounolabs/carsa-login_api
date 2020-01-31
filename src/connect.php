@@ -2,7 +2,7 @@
     function getConnectionMSSQLv1(){
         $serverName = "192.168.16.10";
         $serverPort = "1433";
-        $serverDb   = "DBPRODUC";
+        $serverDb   = "BDPRODUC";
         $serverUser = "loginws";
         $serverPass = "Carsa@2020";
         
