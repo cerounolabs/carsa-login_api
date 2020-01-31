@@ -1,6 +1,6 @@
 <?php
     function getConnectionMSSQLv1(){
-        $serverName = "SRVAPP";
+        $serverName = "192.168.16.10";
         $serverPort = "1433";
         $serverDb   = "DBPRODUC";
         $serverUser = "loginws";
