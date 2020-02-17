@@ -1,4 +1,151 @@
 <?php
+    $app->get('/v1/100/cargo', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $sql00  = "SELECT
+        DISTINCT(a.COD_CARGO)           AS          tipo_cargo_codigo,
+        a.CARGO                         AS          tipo_cargo_nombre
+
+        FROM COLABORADOR_BASICOS a
+        ORDER BY a.COD_CARGO";
+
+        try {
+            $connMSSQL  = getConnectionMSSQLv1();
+            $stmtMSSQL  = $connMSSQL->prepare($sql00);
+            $stmtMSSQL->execute();
+
+            while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                $detalle    = array(
+                    'tipo_cargo_codigo'                                  => $rowMSSQL['tipo_cargo_codigo'],
+                    'tipo_cargo_nombre'                                  => strtoupper($rowMSSQL['tipo_cargo_nombre'])
+                );
+
+                $result[]   = $detalle;
+            }
+
+            if (isset($result)){
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            } else {
+                $detalle = array(
+                    'tipo_cargo_codigo'                                        => '',
+                    'tipo_cargo_nombre'                                       => ''
+                );
+
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+
+            $stmtMSSQL->closeCursor();
+            $stmtMSSQL = null;
+        } catch (PDOException $e) {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
+
+    $app->get('/v1/100/jerarquia', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $sql00  = "SELECT
+        DISTINCT(a.COD_JERARQUIA)           AS          tipo_jerarquia_codigo,
+        a.JERARQUIA                         AS          tipo_jerarquia_nombre
+
+        FROM COLABORADOR_BASICOS a
+        ORDER BY a.COD_JERARQUIA";
+
+        try {
+            $connMSSQL  = getConnectionMSSQLv1();
+            $stmtMSSQL  = $connMSSQL->prepare($sql00);
+            $stmtMSSQL->execute();
+
+            while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                $detalle    = array(
+                    'tipo_jerarquia_codigo'         => $rowMSSQL['tipo_jerarquia_codigo'],
+                    'tipo_jerarquia_nombre'         => strtoupper($rowMSSQL['tipo_jerarquia_nombre'])
+                );
+
+                $result[]   = $detalle;
+            }
+
+            if (isset($result)){
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            } else {
+                $detalle = array(
+                    'tipo_jerarquia_codigo'         => '',
+                    'tipo_jerarquia_nombre'         => ''
+                );
+
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+
+            $stmtMSSQL->closeCursor();
+            $stmtMSSQL = null;
+        } catch (PDOException $e) {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
+
+    $app->get('/v1/100/departamento', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $sql00  = "SELECT
+        DISTINCT(a.COD_DEPARTAMENTO_AREA)           AS          tipo_departamento_codigo,
+        a.DEPARTAMENTO                              AS          tipo_departamento_nombre
+
+        FROM COLABORADOR_BASICOS a
+        ORDER BY a.COD_DEPARTAMENTO_AREA";
+
+        try {
+            $connMSSQL  = getConnectionMSSQLv1();
+            $stmtMSSQL  = $connMSSQL->prepare($sql00);
+            $stmtMSSQL->execute();
+
+            while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                $detalle    = array(
+                    'tipo_departamento_codigo'         => $rowMSSQL['tipo_departamento_codigo'],
+                    'tipo_departamento_nombre'         => strtoupper($rowMSSQL['tipo_departamento_nombre'])
+                );
+
+                $result[]   = $detalle;
+            }
+
+            if (isset($result)){
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            } else {
+                $detalle = array(
+                    'tipo_departamento_codigo'         => '',
+                    'tipo_departamento_nombre'         => ''
+                );
+
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+
+            $stmtMSSQL->closeCursor();
+            $stmtMSSQL = null;
+        } catch (PDOException $e) {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
+
     $app->get('/v1/400/colaborador', function($request) {
         require __DIR__.'/../src/connect.php';
 
