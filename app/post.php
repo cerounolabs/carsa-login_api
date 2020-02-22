@@ -11,7 +11,7 @@
         $val07      = $request->getParsedBody()['login_parm07'];
         $val08      = $request->getParsedBody()['login_parm08'];
 
-        $pass       = getContrasenha($val01, $val02);
+        $pass       = getContrasenhaEncr($val01, $val02);
 
         if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
             $sql00  = "SELECT
@@ -166,7 +166,7 @@
         $val07      = $request->getParsedBody()['login_parm07'];
         $val08      = $request->getParsedBody()['login_parm08'];
 
-        $pass       = getContrasenha($val01, $val02);
+        $pass       = getContrasenhaEncr($val01, $val02);
 
         if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
             $sql00  = "SELECT
