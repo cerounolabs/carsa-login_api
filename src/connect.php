@@ -68,7 +68,7 @@
         return $conn;
     }
 
-    function getContrasenha($var01, $var02){
+    function getContrasenhaEncr($var01, $var02){
         $usuLen     = strlen($var01);
         $pasLen     = strlen($var02);
         $result     = '';
@@ -119,4 +119,54 @@
         }
 
         return $result;
+    }
+
+    function getContrasenhaVal($var01){
+        $pasLen     = strlen($var01);
+        $result     = false;
+        $retCarMay  = false;
+        $retCarMin  = false;
+        $retCarNum  = false;
+        $retCarEsp  = false;
+
+        for ($i = 0; $i < $pasLen; $i++) { 
+            $pasIndex   = substr($var01, $i, 1);
+
+            if ($retCarMay == false) {
+                $posCar = strpos($pasIndex, 'ABCDEFGHIJKLMNOPQRSTVWXYZ');
+
+                if ($posCar > 0) {
+                    $retCarMay  = true;
+                }
+            }
+
+            if ($retCarMin == false) {
+                $posCar = strpos($pasIndex, 'abcdefghijklmnopqrstvwxyz');
+
+                if ($posCar > 0) {
+                    $retCarMin  = true;
+                }
+            }
+
+            if ($retCarNum == false) {
+                $posCar = strpos($pasIndex, '1234567890');
+
+                if ($posCar > 0) {
+                    $retCarNum  = true;
+                }
+            }
+
+            if ($retCarEsp == false) {
+                $posCar = strpos($pasIndex, '*,-+/._#&@;$!');
+
+                if ($posCar > 0) {
+                    $retCarEsp  = true;
+                }
+            }
+        }
+
+        if ($retCarMay = true && $retCarMin = true && $retCarNum = true && $retCarEsp = true) {
+            $result = true;
+        }
+        return $result; 
     }
