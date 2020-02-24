@@ -138,10 +138,10 @@
                                 $stmtMSSQL02= $connMSSQL->prepare($sql02);
                                 $stmtMSSQL02->execute();
                                 $row_mssql02= $stmtMSSQL02->fetch(PDO::FETCH_ASSOC);
-                                $insDat     = date('Y-m-d');
+                                $insDat     = date('d/m/Y');
                                 $insHor     = date('H:i:s');
-                                $datSta     = date('Y-m-d'); 
-                                $datEnd     = date('Y-m-d', strtotime($datSta.'+ '.$row_mssql02['parametro_dias'].' day'));
+                                $datSta     = date('d/m/Y'); 
+                                $datEnd     = date('d/m/Y', strtotime($datSta.'+ '.$row_mssql02['parametro_dias'].' day'));
 
                                 $stmtMSSQL03= $connMSSQL->prepare($sql03);
                                 $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $insDat, $insHor, $val01, $val04]);
