@@ -112,7 +112,7 @@
         $sql03      = "INSERT INTO HISTCON (HSTCLUSU, HSTCLSEC, HSTCLCON, HSTCLNCO, HSTFCHIN, HSTFCHFN, HSTAFCH, HSTAHS, HSTAUS, HSTAPC) VALUES (?, (SELECT (MAX(a.HstClSec)+1) FROM HISTCON a WHERE a.HSTCLUSU = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
         $sql04      = "UPDATE FSD050 SET CLCON = ?, CLFCHVCI = ?, CLFCHVCF = ? WHERE CLUSU = ? AND CLCON = ?";
 
-        $banPass = getContrasenhaVal($val01, $val03);
+        $banPass = getContrasenhaVal($val03);
 
         if ($banPass == true) {
             $passOld    = getContrasenhaEncr($val01, $val02);
