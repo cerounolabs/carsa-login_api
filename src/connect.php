@@ -23,7 +23,7 @@
     }
 
     function getConnectionMSSQLv2(){
-        $serverName = "SRVDESA01";
+        $serverName = "192.168.16.9";
         $serverPort = "1433";
         $serverDb   = "DESTRASJUD";
         $serverUser = "czelaya";
