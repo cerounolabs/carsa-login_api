@@ -17,9 +17,7 @@
         $sql00      = "SELECT a.ClUsu AS user_usuario, a.ClCon AS user_contrasenha FROM FSD050 a WHERE a.ClUsu = ?";
         $sql01      = "SELECT * FROM HISTCON WHERE HSTCLUSU = ? AND HSTCLCON = ?";
         $sql02      = "SELECT a.FGParamVE AS parametro_dias FROM FGPARAM a WHERE a.FGParamNum = 5000500";
-        $sql03      = "INSERT INTO HISTCON 
-        (HSTCLUSU, HSTCLSEC, HSTCLCON, HSTCLNCO, HSTFCHIN, HSTFCHFN, HSTAFCH, HSTAHS, HSTAUS, HSTAPC) VALUES 
-        (?, (SELECT (MAX(a.HstClSec)+1) FROM HISTCON a WHERE a.HSTCLUSU = ?), ?, ?, ?, ?, date('Y-m-d'), date('H:m:i'), ?, ?)";
+        $sql03      = "INSERT INTO HISTCON (HSTCLUSU, HSTCLSEC, HSTCLCON, HSTCLNCO, HSTFCHIN, HSTFCHFN, HSTAFCH, HSTAHS, HSTAUS, HSTAPC) VALUES (?, (SELECT (MAX(a.HstClSec)+1) FROM HISTCON a WHERE a.HSTCLUSU = ?), ?, ?, ?, ?, date('Y-m-d'), date('H:m:i'), ?, ?)";
         $sql04      = "UPDATE FSD050 SET CLCON = ?, CLFCHVCI = ?, CLFCHVCF = ? WHERE CLUSU = ? AND CLCON = ?";
 
         $banPass = getContrasenhaVal($val01, $val03);
@@ -48,13 +46,17 @@
                                 $stmtMSSQL02= $connMSSQL->prepare($sql02);
                                 $stmtMSSQL02->execute();
                                 $row_mssql02= $stmtMSSQL02->fetch(PDO::FETCH_ASSOC);
+                                $datSta     = date('Y-m-d'); 
                                 $datEnd     = date('Y-m-d', strtotime($fecAct.'+ '.$row_mssql02['parametro_dias'].' day'));
 
                                 $stmtMSSQL03= $connMSSQL->prepare($sql03);
-                                $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, ]);
+                                $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $val01, $val04]);
+
+                                $stmtMSSQL04= $connMSSQL->prepare($sql04);
+                                $stmtMSSQL04->execute([$passNew, $datSta, $datEnd, $val01, $passOld]);
                             } else {
                                 header("Content-Type: application/json; charset=utf-8");
-                                $json = json_encode(array('code' => 401, 'status' => 'Error', 'message' => 'Verifique, la contraseña es igual a alguna de las anteriores, favor modificar.!'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                                $json = json_encode(array('code' => 401, 'status' => 'Error', 'message' => 'Error LOGIN: Verifique, la contraseña es igual a alguna de las anteriores, favor modificar.!'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
                             }
                         } else {
                             header("Content-Type: application/json; charset=utf-8");
@@ -63,19 +65,27 @@
                     }
 
                     $stmtMSSQL00->closeCursor();
+                    $stmtMSSQL01->closeCursor();
+                    $stmtMSSQL02->closeCursor();
+                    $stmtMSSQL03->closeCursor();
+                    $stmtMSSQL04->closeCursor();
 
                     $stmtMSSQL00 = null;
+                    $stmtMSSQL01 = null;
+                    $stmtMSSQL02 = null;
+                    $stmtMSSQL03 = null;
+                    $stmtMSSQL04 = null;
                 } catch (PDOException $e) {
                     header("Content-Type: application/json; charset=utf-8");
                     $json = json_encode(array('code' => 401, 'status' => 'failure', 'message' => 'Error LOGIN: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
                 }
             } else {
                 header("Content-Type: application/json; charset=utf-8");
-                $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Error LOGIN: Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
             }
         } else {
             header("Content-Type: application/json; charset=utf-8");
-            $json = json_encode(array('code' => 401, 'status' => 'error', 'message' => 'Verifique, la contraseña nueva no es segura.! Debe estar compuesta por al menos: \n 1 Mayúscula. \n 1 Minúscula. \n 1 Número. \n 1 Caracter Especial (*,-+/._#&@;$!).'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            $json = json_encode(array('code' => 401, 'status' => 'error', 'message' => 'Error LOGIN: Verifique, la contraseña nueva no es segura.! Debe estar compuesta por al menos: \n 1 Mayúscula. \n 1 Minúscula. \n 1 Número. \n 1 Caracter Especial (*,-+/._#&@;$!).'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
         }
 
         $connMSSQL  = null;
