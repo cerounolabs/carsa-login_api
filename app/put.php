@@ -111,7 +111,7 @@
         $sql00      = "SELECT a.ClUsu AS user_usuario, a.ClCon AS user_contrasenha FROM FSD050 a WHERE a.ClUsu = ?";
         $sql01      = "SELECT * FROM HISTCON WHERE HSTCLUSU = ? AND HSTCLCON = ?";
         $sql02      = "SELECT a.FGParamVE AS parametro_dias FROM FGPARAM a WHERE a.FGParamNum = 5000500";
-        $sql03      = "INSERT INTO HISTCON (HSTCLUSU, HSTCLSEC, HSTCLCON, HSTCLNCO, HSTFCHIN, HSTFCHFN, HSTAFCH, HSTAHS, HSTAUS, HSTAPC) VALUES (?, (SELECT (MAX(a.HstClSec)+1) FROM HISTCON a WHERE a.HSTCLUSU = ?), ?, ?, ?, ?, date('Y-m-d'), date('H:m:i'), ?, ?)";
+        $sql03      = "INSERT INTO HISTCON (HSTCLUSU, HSTCLSEC, HSTCLCON, HSTCLNCO, HSTFCHIN, HSTFCHFN, HSTAFCH, HSTAHS, HSTAUS, HSTAPC) VALUES (?, (SELECT (MAX(a.HstClSec)+1) FROM HISTCON a WHERE a.HSTCLUSU = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
         $sql04      = "UPDATE FSD050 SET CLCON = ?, CLFCHVCI = ?, CLFCHVCF = ? WHERE CLUSU = ? AND CLCON = ?";
 
         $banPass = getContrasenhaVal($val01, $val03);
@@ -140,11 +140,13 @@
                                 $stmtMSSQL02= $connMSSQL->prepare($sql02);
                                 $stmtMSSQL02->execute();
                                 $row_mssql02= $stmtMSSQL02->fetch(PDO::FETCH_ASSOC);
+                                $insDat     = date('Y-m-d');
+                                $insHor     = date('H:i:s');
                                 $datSta     = date('Y-m-d'); 
                                 $datEnd     = date('Y-m-d', strtotime($fecAct.'+ '.$row_mssql02['parametro_dias'].' day'));
 
                                 $stmtMSSQL03= $connMSSQL->prepare($sql03);
-                                $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $val01, $val04]);
+                                $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $insDat, $insHor, $val01, $val04]);
 
                                 $stmtMSSQL04= $connMSSQL->prepare($sql04);
                                 $stmtMSSQL04->execute([$passNew, $datSta, $datEnd, $val01, $passOld]);
