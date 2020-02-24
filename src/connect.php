@@ -165,7 +165,7 @@
             }
         }
 
-        if ($retCarMay = true && $retCarMin = true && $retCarNum = true && $retCarEsp = true) {
+        if ($retCarMay == true && $retCarMin == true && $retCarNum == true && $retCarEsp == true) {
             $result = true;
         }
         return $result; 
