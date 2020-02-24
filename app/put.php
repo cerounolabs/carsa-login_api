@@ -120,7 +120,7 @@
             $passOld    = getContrasenhaEncr($val01, $val02);
             $passNew    = getContrasenhaEncr($val01, $val03);
 
-            if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($pass)) {
+            if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($passOld) && isset($passNew)) {
                 try {
                     $connMSSQL      = getConnectionMSSQLv2();
                     $stmtMSSQL00    = $connMSSQL->prepare($sql00);
