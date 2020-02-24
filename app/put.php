@@ -179,7 +179,7 @@
             }
         } else {
             header("Content-Type: application/json; charset=utf-8");
-            $json = json_encode(array('code' => 401, 'status' => 'error', 'message' => 'Error LOGIN: Verifique, la contraseña nueva no es segura.! Debe estar compuesta por al menos: \n 1 Mayúscula. \n 1 Minúscula. \n 1 Número. \n 1 Caracter Especial (*,-+/._#&@;$!).'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            $json = json_encode(array('code' => 401, 'status' => 'error', 'message' => 'Error LOGIN: Verifique, la contraseña nueva no es segura.! Debe estar compuesta por al menos: 1 Mayúscula. 1 Minúscula. 1 Número. 1 Caracter Especial.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
         }
 
         $connMSSQL  = null;
