@@ -135,7 +135,7 @@
             if ($retCarMay == false) {
                 $posCar = strpos($pasIndex, 'ABCDEFGHIJKLMNOPQRSTVWXYZ');
 
-                if ($posCar > 0) {
+                if ($posCar === true) {
                     $retCarMay  = true;
                 }
             }
@@ -143,7 +143,7 @@
             if ($retCarMin == false) {
                 $posCar = strpos($pasIndex, 'abcdefghijklmnopqrstvwxyz');
 
-                if ($posCar > 0) {
+                if ($posCar === true) {
                     $retCarMin  = true;
                 }
             }
@@ -151,7 +151,7 @@
             if ($retCarNum == false) {
                 $posCar = strpos($pasIndex, '1234567890');
 
-                if ($posCar > 0) {
+                if ($posCar === true) {
                     $retCarNum  = true;
                 }
             }
@@ -159,7 +159,7 @@
             if ($retCarEsp == false) {
                 $posCar = strpos($pasIndex, '*,-+/._#&@;$!');
 
-                if ($posCar > 0) {
+                if ($posCar === true) {
                     $retCarEsp  = true;
                 }
             }
