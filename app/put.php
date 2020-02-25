@@ -150,6 +150,9 @@
 
                                 $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $insDat, $insHor, $val01, $val04]);
                                 $stmtMSSQL04->execute([$passNew, $datSta, $datEnd, $val01, $passOld]);
+
+                                header("Content-Type: application/json; charset=utf-8");
+                                $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success LOGIN: Su contraseña ha sido modificada correctamente.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
                             } else {
                                 header("Content-Type: application/json; charset=utf-8");
                                 $json = json_encode(array('code' => 401, 'status' => 'Error', 'message' => 'Error LOGIN: Verifique, la contraseña es igual a alguna de las anteriores, favor modificar.!'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
