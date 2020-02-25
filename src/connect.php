@@ -23,11 +23,11 @@
     }
 
     function getConnectionMSSQLv2(){
-        $serverName = "192.168.16.9";
+        $serverName = "SRVDESA02";
         $serverPort = "1433";
-        $serverDb   = "DESTRASJUD";
+        $serverDb   = "PRODUCCION_AYER2";
         $serverUser = "czelaya";
-        $serverPass = "carsa_2019";
+        $serverPass = "carsa_2021";
         
         try {
             $conn = new PDO("sqlsrv:Server=$serverName,$serverPort;Database=$serverDb;ConnectionPooling=0", $serverUser, $serverPass,
