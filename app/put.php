@@ -121,7 +121,13 @@
             if (isset($val01) && isset($val02) && isset($val03) && isset($val04) && isset($val05) && isset($passOld) && isset($passNew)) {
                 try {
                     $connMSSQL      = getConnectionMSSQLv2();
+
                     $stmtMSSQL00    = $connMSSQL->prepare($sql00);
+                    $stmtMSSQL01    = $connMSSQL->prepare($sql01);
+                    $stmtMSSQL02    = $connMSSQL->prepare($sql02);
+                    $stmtMSSQL03    = $connMSSQL->prepare($sql03);
+                    $stmtMSSQL04    = $connMSSQL->prepare($sql04);
+
                     $stmtMSSQL00->execute([$val01]);
                     $row_mssql00    = $stmtMSSQL00->fetch(PDO::FETCH_ASSOC);
 
@@ -130,12 +136,11 @@
                         $json = json_encode(array('code' => 401, 'status' => 'Error', 'message' => 'Error LOGIN: Usuario No Existe'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
                     } else {
                         if($row_mssql00['user_contrasenha'] == $passOld) {
-                            $stmtMSSQL01  = $connMSSQL->prepare($sql01);
+                            
                             $stmtMSSQL01->execute([$val01, $val03]);
                             $row_mssql01  = $stmtMSSQL01->fetch(PDO::FETCH_ASSOC);
 
                             if (!$row_mssql01){
-                                $stmtMSSQL02= $connMSSQL->prepare($sql02);
                                 $stmtMSSQL02->execute();
                                 $row_mssql02= $stmtMSSQL02->fetch(PDO::FETCH_ASSOC);
                                 $insDat     = date('d/m/Y');
@@ -143,10 +148,7 @@
                                 $datSta     = date('d/m/Y'); 
                                 $datEnd     = date('d/m/Y', strtotime($datSta.'+ '.$row_mssql02['parametro_dias'].' day'));
 
-                                $stmtMSSQL03= $connMSSQL->prepare($sql03);
                                 $stmtMSSQL03->execute([$val01, $val01, $passOld, $passNew, $datSta, $datEnd, $insDat, $insHor, $val01, $val04]);
-
-                                $stmtMSSQL04= $connMSSQL->prepare($sql04);
                                 $stmtMSSQL04->execute([$passNew, $datSta, $datEnd, $val01, $passOld]);
                             } else {
                                 header("Content-Type: application/json; charset=utf-8");
