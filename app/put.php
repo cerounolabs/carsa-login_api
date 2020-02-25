@@ -137,7 +137,7 @@
                     } else {
                         if($row_mssql00['user_contrasenha'] == $passOld) {
                             
-                            $stmtMSSQL01->execute([$val01, $val03]);
+                            $stmtMSSQL01->execute([$val01, $passNew]);
                             $row_mssql01  = $stmtMSSQL01->fetch(PDO::FETCH_ASSOC);
 
                             if (!$row_mssql01){
