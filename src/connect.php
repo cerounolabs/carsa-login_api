@@ -135,7 +135,7 @@
             if ($retCarMay == false) {
                 $posCar = strpos('ABCDEFGHIJKLMNOPQRSTVWXYZ', $pasIndex);
 
-                if ($posCar != false || $posCar >= 0) {
+                if ($posCar == true || $pasIndex == 'A') {
                     $retCarMay  = true;
                 }
             }
@@ -143,7 +143,7 @@
             if ($retCarMin == false) {
                 $posCar = strpos('abcdefghijklmnopqrstvwxyz', $pasIndex);
 
-                if ($posCar != false || $posCar >= 0) {
+                if ($posCar == true || $pasIndex == 'a') {
                     $retCarMin  = true;
                 }
             }
@@ -151,7 +151,7 @@
             if ($retCarNum == false) {
                 $posCar = strpos('1234567890', $pasIndex);
 
-                if ($posCar != false || $posCar >= 0) {
+                if ($posCar == true || $pasIndex == '1') {
                     $retCarNum  = true;
                 }
             }
@@ -159,7 +159,7 @@
             if ($retCarEsp == false) {
                 $posCar = strpos('*,-+/._#&@;$!', $pasIndex);
 
-                if ($posCar != false || $posCar >= 0) {
+                if ($posCar == true || $pasIndex == '*') {
                     $retCarEsp  = true;
                 }
             }
