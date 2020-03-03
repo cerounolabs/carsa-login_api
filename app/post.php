@@ -46,10 +46,10 @@
 
             try {
                 $connMSSQL  = getConnectionMSSQLv1();
-                $connMYSQL  = getConnectionMYSQL();
+//                $connMYSQL  = getConnectionMYSQL();
 
                 $stmtMSSQL  = $connMSSQL->prepare($sql00);
-                $stmtMYSQL  = $connMYSQL->prepare($sql01);
+//                $stmtMYSQL  = $connMYSQL->prepare($sql01);
 
                 $stmtMSSQL->execute([$val01]);
                 
@@ -132,13 +132,13 @@
                     }
                 }
 
-                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07, $val08]); 
+//                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07, $val08]); 
                 
                 $stmtMSSQL->closeCursor();
-                $stmtMYSQL->closeCursor();
+//                $stmtMYSQL->closeCursor();
 
                 $stmtMSSQL = null;
-                $stmtMYSQL = null;
+//                $stmtMYSQL = null;
             } catch (PDOException $e) {
                 header("Content-Type: application/json; charset=utf-8");
                 $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error LOGIN: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
@@ -149,7 +149,7 @@
         }
 
         $connMSSQL  = null;
-        $connMYSQL  = null;
+//        $connMYSQL  = null;
         
         return $json;
     });
@@ -201,10 +201,10 @@
 
             try {
                 $connMSSQL  = getConnectionMSSQLv2();
-                $connMYSQL  = getConnectionMYSQL();
+//                $connMYSQL  = getConnectionMYSQL();
 
                 $stmtMSSQL  = $connMSSQL->prepare($sql00);
-                $stmtMYSQL  = $connMYSQL->prepare($sql01);
+//                $stmtMYSQL  = $connMYSQL->prepare($sql01);
 
                 $stmtMSSQL->execute([$val01]);
                 
@@ -287,13 +287,13 @@
                     }
                 }
 
-                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07, $val08]); 
+//                $stmtMYSQL->execute([$val00, $val01, $val02, $val03, $val04, $val05, $val06, $val07, $val08]); 
                 
                 $stmtMSSQL->closeCursor();
-                $stmtMYSQL->closeCursor();
+//                $stmtMYSQL->closeCursor();
 
                 $stmtMSSQL = null;
-                $stmtMYSQL = null;
+//                $stmtMYSQL = null;
             } catch (PDOException $e) {
                 header("Content-Type: application/json; charset=utf-8");
                 $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error LOGIN: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
@@ -304,7 +304,7 @@
         }
 
         $connMSSQL  = null;
-        $connMYSQL  = null;
+//        $connMYSQL  = null;
         
         return $json;
     });
