@@ -1116,3 +1116,184 @@
         
         return $json;
     });
+
+    $app->get('/v1/400/usuario', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $sql00  = "SELECT
+        a.FUCOD         AS          funcionario_codigo,
+        a.CLUSU         AS          funcionario_usuario,
+        a.CLNOM         AS          funcionario_completo,
+        a.FUCIC         AS          funcionario_documento
+
+        FROM FSD050 a
+        ORDER BY a.FUCOD";
+
+        try {
+            $connMSSQL  = getConnectionMSSQLv1();
+            $stmtMSSQL  = $connMSSQL->prepare($sql00);
+            $stmtMSSQL->execute();
+
+            while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                $detalle    = array(
+                    'funcionario_codigo'            => $rowMSSQL['funcionario_codigo'],
+                    'funcionario_usuario'           => strtoupper(trim($rowMSSQL['funcionario_usuario'])),
+                    'funcionario_completo'          => strtoupper(trim($rowMSSQL['funcionario_completo'])),
+                    'funcionario_documento'         => strtoupper(trim($rowMSSQL['funcionario_documento']))
+                );
+
+                $result[]   = $detalle;
+            }
+
+            if (isset($result)){
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            } else {
+                $detalle = array(
+                    'funcionario_codigo'                                        => '',
+                    'funcionario_usuario'                                       => '',
+                    'funcionario_completo'                                      => '',
+                    'funcionario_documento'                                     => ''
+                );
+
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+
+            $stmtMSSQL->closeCursor();
+            $stmtMSSQL = null;
+        } catch (PDOException $e) {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
+
+    $app->get('/v1/400/usuario/usuario/{codigo}', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $val01      = $request->getAttribute('codigo');
+        
+        if (isset($val01)) {
+            $sql00  = "SELECT
+                a.FUCOD         AS          funcionario_codigo,
+                a.CLUSU         AS          funcionario_usuario,
+                a.CLNOM         AS          funcionario_completo,
+                a.FUCIC         AS          funcionario_documento
+
+                FROM FSD050 a
+                WHERE a.CLUSU = ?
+                ORDER BY a.FUCOD";
+
+            try {
+                $connMSSQL  = getConnectionMSSQLv1();
+                $stmtMSSQL  = $connMSSQL->prepare($sql00);
+                $stmtMSSQL->execute([$val01]);
+
+                while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                    $detalle    = array(
+                        'funcionario_codigo'            => $rowMSSQL['funcionario_codigo'],
+                        'funcionario_usuario'           => strtoupper(trim($rowMSSQL['funcionario_usuario'])),
+                        'funcionario_completo'          => strtoupper(trim($rowMSSQL['funcionario_completo'])),
+                        'funcionario_documento'         => strtoupper(trim($rowMSSQL['funcionario_documento']))
+                    );
+
+                    $result[]   = $detalle;
+                }
+
+                if (isset($result)){
+                    header("Content-Type: application/json; charset=utf-8");
+                    $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                } else {
+                    $detalle = array(
+                        'funcionario_codigo'                                        => '',
+                        'funcionario_usuario'                                       => '',
+                        'funcionario_completo'                                      => '',
+                        'funcionario_documento'                                     => ''
+                    );
+
+                    header("Content-Type: application/json; charset=utf-8");
+                    $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                }
+
+                $stmtMSSQL->closeCursor();
+                $stmtMSSQL = null;
+            } catch (PDOException $e) {
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+        } else {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
+
+    $app->get('/v1/400/usuario/codigo/{codigo}', function($request) {
+        require __DIR__.'/../src/connect.php';
+
+        $val01      = $request->getAttribute('codigo');
+        
+        if (isset($val01)) {
+            $sql00  = "SELECT
+                a.FUCOD         AS          funcionario_codigo,
+                a.CLUSU         AS          funcionario_usuario,
+                a.CLNOM         AS          funcionario_completo,
+                a.FUCIC         AS          funcionario_documento
+
+                FROM FSD050 a
+                WHERE a.FUCOD = ?
+                ORDER BY a.FUCOD";
+
+            try {
+                $connMSSQL  = getConnectionMSSQLv1();
+                $stmtMSSQL  = $connMSSQL->prepare($sql00);
+                $stmtMSSQL->execute([$val01]);
+
+                while ($rowMSSQL = $stmtMSSQL->fetch()) {                
+                    $detalle    = array(
+                        'funcionario_codigo'            => $rowMSSQL['funcionario_codigo'],
+                        'funcionario_usuario'           => strtoupper(trim($rowMSSQL['funcionario_usuario'])),
+                        'funcionario_completo'          => strtoupper(trim($rowMSSQL['funcionario_completo'])),
+                        'funcionario_documento'         => strtoupper(trim($rowMSSQL['funcionario_documento']))
+                    );
+
+                    $result[]   = $detalle;
+                }
+
+                if (isset($result)){
+                    header("Content-Type: application/json; charset=utf-8");
+                    $json = json_encode(array('code' => 200, 'status' => 'ok', 'message' => 'Success SELECT', 'data' => $result), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                } else {
+                    $detalle = array(
+                        'funcionario_codigo'                                        => '',
+                        'funcionario_usuario'                                       => '',
+                        'funcionario_completo'                                      => '',
+                        'funcionario_documento'                                     => ''
+                    );
+
+                    header("Content-Type: application/json; charset=utf-8");
+                    $json = json_encode(array('code' => 204, 'status' => 'ok', 'message' => 'No hay registros', 'data' => $detalle), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                }
+
+                $stmtMSSQL->closeCursor();
+                $stmtMSSQL = null;
+            } catch (PDOException $e) {
+                header("Content-Type: application/json; charset=utf-8");
+                $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error SELECT: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            }
+        } else {
+            header("Content-Type: application/json; charset=utf-8");
+            $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+        }
+
+        $connMSSQL  = null;
+        
+        return $json;
+    });
