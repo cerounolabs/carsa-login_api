@@ -13,8 +13,7 @@
 
         $pass       = getContrasenhaEncr($val01, $val02);
 
-        if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
-            $sql00  = "SELECT
+        $sql00  = "SELECT
             a.ClUsu                     AS      login_usuario,
             a.ClCon                     AS      login_contrasenha,
             a.FuCod                     AS      login_funcionario_codigo,
@@ -36,21 +35,22 @@
             b.CORREO_ELECTRONICO        AS      login_email
 
             FROM FSD050 a
-			INNER JOIN COLABORADOR_BASICOS b ON a.FuCod = b.COD_FUNC
+            INNER JOIN COLABORADOR_BASICOS b ON a.FuCod = b.COD_FUNC
 
             WHERE a.ClUsu = ?
             
             ORDER BY a.FuCod";
 
-            $sql01  = "INSERT INTO FUNLOG (FUNLOGEST, FUNLOGUSU, FUNLOGPAS, FUNLOGSIS, FUNLOGDIR, FUNLOGHOS, FUNLOGAGE, FUNLOGREF, FUNLOGAFH) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql01  = "INSERT INTO FUNLOG (FUNLOGEST, FUNLOGMEN, FUNLOGUSU, FUNLOGPAS, FUNLOGSIS, FUNLOGDIR, FUNLOGHOS, FUNLOGAGE, FUNLOGREF, FUNLOGAFH) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE())";
 
-            try {
-                $connMSSQL  = getConnectionMSSQLv1();
-                $stmtMSSQL  = $connMSSQL->prepare($sql00);
-                $stmtMSSQL->execute([$val01]);
+        try {
+            $connMSSQL  = getConnectionMSSQLv1();
+            $stmtMSSQL  = $connMSSQL->prepare($sql00);
+            $stmtMSSQL->execute([$val01]);
+            
+            $row_mssql  = $stmtMSSQL->fetch(PDO::FETCH_ASSOC);
 
-                $row_mssql  = $stmtMSSQL->fetch(PDO::FETCH_ASSOC);
-
+            if (isset($val01) && isset($val02) && isset($val03) && isset($val04)) {
                 if (!$row_mssql){
                     $val00      = 'E';
                     $detalle    = array(
@@ -129,15 +129,21 @@
                 }
 
                 $stmtMSSQL->closeCursor();
-                $stmtMSSQL = null;
-            } catch (PDOException $e) {
+                $stmtMSSQL  = null;
+            } else {
+                $val00  = 'A';
                 header("Content-Type: application/json; charset=utf-8");
-                $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error LOGIN: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+                $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
             }
-        } else {
+        } catch (PDOException $e) {
             header("Content-Type: application/json; charset=utf-8");
-            $json = json_encode(array('code' => 400, 'status' => 'error', 'message' => 'Verifique, algún campo esta vacio.'), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
+            $json = json_encode(array('code' => 204, 'status' => 'failure', 'message' => 'Error LOGIN: '.$e), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION);
         }
+
+        $stmtMSSQL01= $connMSSQL->prepare($sql01);
+        $stmtMSSQL01->execute([$val00, $json, $val01, $pass, $val03, $val04, $val05, $val06, $val07]);
+        $stmtMSSQL01->closeCursor();
+        $stmtMSSQL01= null;
 
         $connMSSQL  = null;
         
